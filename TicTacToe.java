@@ -13,9 +13,11 @@ public class TicTacToe  implements ActionListener {
     JButton[] buttons = new JButton[9];
     boolean player1_turn;
     boolean winner = false;
+  
 
     TicTacToe(){
 
+        
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(800,800);
         frame.getContentPane().setBackground(new Color(255,255,255));
@@ -304,6 +306,20 @@ public class TicTacToe  implements ActionListener {
 
         textfield.setText("X Wins");
 
+        String[] options = new String[2];
+        options[0] = "Restart";
+        options[1] = "Exit";
+
+        int response =  JOptionPane.showOptionDialog(null, "X Wins!", "Game Over!", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+
+        if (response == 0){
+            reset();
+        } else if (response == 1){
+            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+
+        }
+
+
     }
 
     public void oWins(int a, int b, int c){
@@ -318,6 +334,20 @@ public class TicTacToe  implements ActionListener {
 
         textfield.setText("O Wins");
 
+        String[] options = new String[2];
+        options[0] = "Restart";
+        options[1] = "Exit";
+
+        int response =  JOptionPane.showOptionDialog(null, "O Wins!", "Game Over!", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+
+        if (response == 0){
+            reset();
+        } else if (response == 1){
+            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+
+        }
+
+
     }
 
     public void neitherWins(){
@@ -327,6 +357,44 @@ public class TicTacToe  implements ActionListener {
             buttons[i].setEnabled(false);
 
         }
+
+        textfield.setText("Draw");
+
+        String[] options = new String[2];
+        options[0] = "Restart";
+        options[1] = "Exit";
+
+        int response =  JOptionPane.showOptionDialog(null, "Draw!", "Game Over!", 0, JOptionPane.INFORMATION_MESSAGE, null, options, null);
+
+        if (response == 0){
+            reset();
+        } else if (response == 1){
+            frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
+
+        }
+
+    }
+
+    public void reset(){
+
+        for (int i = 0; i < 9; i++){
+            button_panel.remove(buttons[i]);
+        }
+
+        for (int i = 0; i < 9; i ++){
+
+            buttons[i].setText("");
+            buttons[i].setBackground(null);
+            buttons[i] = new JButton();
+            button_panel.add(buttons[i]);
+            buttons[i].setFont(new Font("Times New Roman", Font.BOLD,120));
+            buttons[i].setFocusable(false);
+            buttons[i].addActionListener(this);
+
+        }
+
+        firstTurn();
+
 
     }
 
